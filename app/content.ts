@@ -43,7 +43,7 @@ export const content = {
     { label: "Email", url: "mailto:anandaangeli22@gmail.com", emoji: "✉️" },
     { label: "GitHub", url: "https://github.com/anandaangeli", emoji: "🐙" },
     { label: "LinkedIn", url: "https://linkedin.com/in/username-anda", emoji: "💼" },
-    { label: "Instagram", url: "https://instagram.com/username-anda", emoji: "📸" },
+    { label: "Instagram", url: "https://instagram.com/anandaangeli", emoji: "📸" },
   ],
 };
 
