@@ -17,8 +17,9 @@ export const content = {
 
   // Bagian "Tentang Saya"
   about: [
-    "Halo! Saya Ananda, seorang developer yang senang mengubah ide menjadi produk digital yang nyata.",
-    "Saya tertarik pada pengembangan web, menulis kode yang bersih, dan terus belajar teknologi baru. Di luar koding, saya suka mengeksplorasi hal-hal kreatif.",
+    "Halo, saya Ananda Gracia Angeli, seorang Fresh Graduate di bidang Informatika yang memiliki minat dalam pengembangan aplikasi web dan mobile. Saya memiliki pengalaman mengembangkan berbagai proyek akademik menggunakan Laravel, React, Flutter, MySQL, dan PostgreSQL, mulai dari sistem informasi, aplikasi pembelajaran berbasis NLP, website perhitungan HPP, hingga pengembangan game menggunakan Phaser.",
+    "Saya senang mempelajari teknologi baru dan terbiasa mengubah kebutuhan pengguna menjadi solusi digital yang fungsional, mudah digunakan, dan memiliki tampilan yang menarik. Selain kemampuan teknis, saya juga terbiasa bekerja secara terstruktur, mampu menyelesaikan masalah, serta memiliki kemauan belajar yang tinggi.",
+    "Saat ini saya sedang mencari kesempatan untuk memulai karier sebagai Web Developer, Frontend Developer, atau Backend Developer, di mana saya dapat terus mengembangkan kemampuan sekaligus memberikan kontribusi terbaik bagi perusahaan.",
   ],
 
   // Daftar keahlian / teknologi (tambah atau hapus sesuka Anda)
