@@ -28,7 +28,7 @@ export const content = {
     "React",
     "Next.js",
     "Node.js",
-    "Python",
+    "PHP",
     "HTML & CSS",
     "Tailwind CSS",
     "Git & GitHub",
