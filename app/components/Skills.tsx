@@ -1,48 +1,41 @@
 import { content } from "../content";
-import Reveal from "./Reveal";
-
-// Warna-warni bergiliran untuk tiap pil keahlian
-const colors = [
-  "from-pink-500 to-rose-500",
-  "from-fuchsia-500 to-purple-500",
-  "from-indigo-500 to-blue-500",
-  "from-sky-500 to-cyan-500",
-  "from-emerald-500 to-teal-500",
-  "from-amber-500 to-orange-500",
-];
 
 export default function Skills() {
   return (
-    <section
-      id="skills"
-      className="mx-auto max-w-5xl scroll-mt-24 px-6 py-24"
-    >
-      <Reveal>
-        <h2 className="text-3xl font-extrabold sm:text-4xl">
-          <span className="bg-gradient-to-r from-emerald-500 to-sky-500 bg-clip-text text-transparent">
+    <section id="skills" className="py-24 px-6 border-t border-[#2d2541]">
+      <div className="max-w-6xl mx-auto">
+        <div className="mb-12">
+          <p className="font-mono text-[#a78bfa] text-xs tracking-widest uppercase mb-3">
             Keahlian
-          </span>{" "}
-          & Teknologi
-        </h2>
-        <p className="mt-3 text-zinc-600 dark:text-zinc-400">
-          Alat dan bahasa yang biasa saya pakai untuk membangun sesuatu.
-        </p>
-      </Reveal>
+          </p>
+          <h2 className="font-display text-4xl font-bold text-[#f3f0f8]">
+            Tech <span className="italic text-[#a78bfa]">Stack</span>
+          </h2>
+        </div>
 
-      <Reveal delay={100}>
-        <ul className="mt-10 flex flex-wrap gap-3">
-          {content.skills.map((skill, i) => (
-            <li
-              key={skill}
-              className={`cursor-default rounded-full bg-gradient-to-r ${
-                colors[i % colors.length]
-              } px-5 py-2.5 font-semibold text-white shadow-md transition-transform hover:-translate-y-1 hover:scale-105`}
+        <div className="grid md:grid-cols-3 gap-6">
+          {content.skillGroups.map((group) => (
+            <div
+              key={group.title}
+              className="rounded-2xl p-6 group hover:border-[#a78bfa44] transition-colors duration-300"
+              style={{ background: "#15121e", border: "1px solid #2d2541" }}
             >
-              {skill}
-            </li>
+              <div className="flex items-center gap-3 mb-5">
+                <span className="text-2xl text-[#a78bfa]">{group.icon}</span>
+                <h3 className="font-semibold text-[#f3f0f8]">{group.title}</h3>
+              </div>
+              <ul className="space-y-2">
+                {group.items.map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-sm text-[#a59eb5]">
+                    <span className="w-1 h-1 rounded-full bg-[#a78bfa] shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
-      </Reveal>
+        </div>
+      </div>
     </section>
   );
 }
