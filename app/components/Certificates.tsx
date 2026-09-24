@@ -63,10 +63,10 @@ export default function Certificates() {
             <motion.div
               key={i}
               layoutId={`cert-card-${cert.title}-${t.certificates.eyebrow}`}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ delay: i * 0.15, type: "spring", bounce: 0.2, duration: 0.8 }}
+              transition={{ delay: i * 0.15, duration: 0.7, ease: "easeOut" }}
               onClick={() => setSelectedCert(cert)}
               className="group cursor-pointer bg-[var(--card)] border border-[var(--border)] hover:border-[var(--primary)]/50 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col relative"
             >

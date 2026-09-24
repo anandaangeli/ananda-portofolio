@@ -71,10 +71,10 @@ export default function Organization() {
               <motion.div
                 key={org.name}
                 layoutId={`org-card-${org.name}-${t.organization.eyebrow}`}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ delay: i * 0.15, type: "spring", bounce: 0.2, duration: 0.6 }}
+                transition={{ delay: i * 0.15, duration: 0.7, ease: "easeOut" }}
                 onClick={() => setSelectedOrg(org)}
                 className="group cursor-pointer bg-[var(--card)] border border-[var(--border)] hover:border-[var(--primary)]/50 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-[var(--primary)]/10 transition-all duration-300 flex flex-col h-full"
               >
