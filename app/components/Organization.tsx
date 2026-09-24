@@ -70,7 +70,7 @@ export default function Organization() {
             {t.organizations.map((org, i) => (
               <motion.div
                 key={org.name}
-                layoutId={`org-card-${org.name}`}
+                layoutId={`org-card-${org.name}-${t.organization.eyebrow}`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -81,7 +81,7 @@ export default function Organization() {
                 {/* Image Container */}
                 <div className="relative h-56 w-full overflow-hidden bg-black">
                   <motion.img 
-                    layoutId={`org-img-${org.name}`}
+                    layoutId={`org-img-${org.name}-${t.organization.eyebrow}`}
                     src={org.img} 
                     alt={org.name} 
                     className="w-full h-full object-cover opacity-80 group-hover:scale-110 group-hover:opacity-100 transition-all duration-700 ease-out"
@@ -137,7 +137,7 @@ export default function Organization() {
             {/* Modal Container */}
             <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6 md:p-12 pointer-events-none">
               <motion.div 
-                layoutId={`org-card-${selectedOrg.name}`}
+                layoutId={`org-card-${selectedOrg.name}-${t.organization.eyebrow}`}
                 className="w-full max-w-4xl max-h-[90vh] bg-[var(--card)] border border-[var(--border)] rounded-[2rem] overflow-hidden shadow-2xl flex flex-col md:flex-row pointer-events-auto relative"
               >
                 {/* Close Button */}
@@ -151,7 +151,7 @@ export default function Organization() {
                 {/* Left: Image (Hero of the Modal) */}
                 <div className="w-full md:w-1/2 h-64 md:h-auto relative bg-black">
                   <motion.img 
-                    layoutId={`org-img-${selectedOrg.name}`}
+                    layoutId={`org-img-${selectedOrg.name}-${t.organization.eyebrow}`}
                     src={selectedOrg.img} 
                     alt={selectedOrg.name} 
                     className="w-full h-full object-cover opacity-90"

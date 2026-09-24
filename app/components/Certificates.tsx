@@ -62,7 +62,7 @@ export default function Certificates() {
           {t.certificateItems.map((cert, i) => (
             <motion.div
               key={i}
-              layoutId={`cert-card-${cert.title}`}
+              layoutId={`cert-card-${cert.title}-${t.certificates.eyebrow}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -123,7 +123,7 @@ export default function Certificates() {
             {/* Modal Container */}
             <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
               <motion.div 
-                layoutId={`cert-card-${selectedCert.title}`}
+                layoutId={`cert-card-${selectedCert.title}-${t.certificates.eyebrow}`}
                 className="w-full max-w-5xl h-[90vh] sm:h-[85vh] bg-[var(--bg)] border border-[var(--border)] rounded-[2rem] overflow-hidden shadow-2xl flex flex-col pointer-events-auto relative"
               >
                 {/* Close Button */}
