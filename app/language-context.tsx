@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useMemo } from "react";
 import { content, type Lang } from "./content";
 
 type LanguageContextValue = {
@@ -11,24 +11,11 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-const STORAGE_KEY = "portofolio-lang";
-
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("id");
-
-  useEffect(() => {
-    const saved = window.localStorage.getItem(STORAGE_KEY);
-    if (saved === "id" || saved === "en") setLangState(saved);
-  }, []);
-
-  const setLang = (next: Lang) => {
-    setLangState(next);
-    window.localStorage.setItem(STORAGE_KEY, next);
-  };
-
+  // Hardcoded to ID as requested by user. No local storage, no state.
   const value = useMemo<LanguageContextValue>(
-    () => ({ lang, setLang, t: content[lang] }),
-    [lang]
+    () => ({ lang: "id", setLang: () => {}, t: content["id"] }),
+    []
   );
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;

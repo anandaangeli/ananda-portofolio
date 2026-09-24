@@ -26,35 +26,18 @@ export default function Certificates() {
         
         {/* Headings */}
         <div className="mb-16 flex flex-col items-center text-center">
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[var(--primary)]/30 bg-[var(--primary)]/10 mb-4"
-          >
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[var(--primary)]/30 bg-[var(--primary)]/10 mb-4">
             <span className="w-2 h-2 rounded-full bg-[var(--primary)] animate-pulse" />
             <span className="text-[var(--primary)] text-xs font-semibold tracking-widest uppercase">
               {t.certificates.eyebrow}
             </span>
-          </motion.div>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ delay: 0.1 }}
-            className="font-display text-4xl sm:text-5xl font-bold text-[var(--fg)] tracking-tight"
-          >
+          </div>
+          <h2 className="font-display text-4xl sm:text-5xl font-bold text-[var(--fg)] tracking-tight">
             {t.certificates.heading1} <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] italic">{t.certificates.headingAccent}</span>
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-[var(--muted-fg)] mt-4 max-w-lg"
-          >
+          </h2>
+          <p className="text-[var(--muted-fg)] mt-4 max-w-lg">
             Klik pada sertifikat untuk melihat berkas asli dan detail kompetensi.
-          </motion.p>
+          </p>
         </div>
 
         {/* Certificate Cards (Grid 2 columns) */}
@@ -63,10 +46,6 @@ export default function Certificates() {
             <motion.div
               key={i}
               layoutId={`cert-card-${cert.title}-${t.certificates.eyebrow}`}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ delay: i * 0.15, duration: 0.7, ease: "easeOut" }}
               onClick={() => setSelectedCert(cert)}
               className="group cursor-pointer bg-[var(--card)] border border-[var(--border)] hover:border-[var(--primary)]/50 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col relative"
             >
