@@ -23,8 +23,8 @@ const id = {
 
   hero: {
     greeting: "Halo, saya",
-    subtitle: "Fresh Graduate IT",
-    description: "Seorang lulusan IT yang memiliki antusiasme tinggi terhadap pengembangan inovasi di bidang Web dan Software Development. Saya berdedikasi untuk selalu menciptakan solusi digital yang fungsional dan berpusat pada pengguna. Sebagai individu yang adaptif dan komunikatif, saya selalu antusias menyambut teknologi baru dan tantangan kolaboratif. Saya berkomitmen untuk terus belajar, bertumbuh, dan menjadi bagian dari tim yang menciptakan perubahan positif.",
+    subtitle: "Built with ♥ & Code",
+    description: "Membangun solusi digital yang efisien dan user-friendly adalah hal yang selalu membuat saya antusias. Harapan saya ke depannya sederhana: bisa terus berkembang sebagai developer dan berkontribusi dalam tim yang satu visi untuk merancang teknologi yang berdampak positif.",
     photo: "/foto-ananda.jpeg",
     ctaCv: "Unduh CV",
     ctaProjects: "Lihat Proyek",
@@ -40,7 +40,7 @@ const id = {
     heading1: "Sedikit tentang",
     headingAccent: "saya",
     intro:
-      "Saya adalah lulusan Teknik Informatika yang bersemangat dalam membangun solusi digital bermakna. Minat saya mencakup pengembangan aplikasi full-stack, mobile development, dan riset di bidang kecerdasan buatan — khususnya Natural Language Processing.",
+      "Seorang lulusan IT yang memiliki antusiasme tinggi terhadap pengembangan inovasi di bidang Web dan Software Development. Saya berdedikasi untuk selalu menciptakan solusi digital yang fungsional dan berpusat pada pengguna. Sebagai individu yang adaptif dan komunikatif, saya selalu antusias menyambut teknologi baru dan tantangan kolaboratif. Saya berkomitmen untuk terus belajar, bertumbuh, dan menjadi bagian dari tim yang menciptakan perubahan positif.",
     eyebrowEdu: "Pendidikan",
     thesisLabel: "Skripsi / Riset",
   },
@@ -84,7 +84,7 @@ const id = {
   experiences: [
     {
       role: "Hospital IT Support Unit Implementer",
-      company: "Rumah Sakit",
+      company: "PT.Jejaring Tiga Artha",
       period: "2024",
       desc: "Bertanggung jawab atas implementasi dan pemeliharaan sistem informasi rumah sakit (SIMRS).",
       points: [
@@ -94,9 +94,9 @@ const id = {
       ]
     },
     {
-      role: "Administrator Online Shop",
+      role: "Admin Operasional Online Shop",
       company: "E-Commerce",
-      period: "2023",
+      period: "2021",
       desc: "Mengelola seluruh aktivitas operasional harian toko digital untuk memastikan kepuasan pelanggan dan akurasi data.",
       points: [
         "Meningkatkan efisiensi pengelolaan inventaris dengan sistem pencatatan stok yang terstruktur.",
@@ -107,7 +107,7 @@ const id = {
     {
       role: "Staff Produksi & Customer Service",
       company: "Industri Kreatif",
-      period: "2022",
+      period: "2026",
       desc: "Berperan ganda dalam mendukung proses produksi konten dan menangani komunikasi garis depan dengan klien.",
       points: [
         "Menangani kebutuhan pelanggan dengan komunikasi yang efektif dan penyelesaian masalah yang cepat.",
