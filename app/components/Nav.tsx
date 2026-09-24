@@ -101,9 +101,6 @@ export default function Nav() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="hidden sm:block">
-            <LangToggle lang={lang} setLang={setLang} />
-          </div>
 
           {mounted && (
             <button
@@ -180,8 +177,7 @@ export default function Nav() {
               );
             })}
             
-            <div className="mt-4 pt-4 border-t border-[var(--border)] flex items-center justify-between px-4">
-              <LangToggle lang={lang} setLang={setLang} />
+            <div className="mt-4 pt-4 border-t border-[var(--border)] flex items-center justify-center px-4">
               <a
                 href="#contact"
                 onClick={() => setMenuOpen(false)}
@@ -197,41 +193,4 @@ export default function Nav() {
   );
 }
 
-function LangToggle({
-  lang,
-  setLang,
-  className,
-}: {
-  lang: "id" | "en";
-  setLang: (lang: "id" | "en") => void;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`relative flex items-center rounded-full p-0.5 text-[10px] font-mono font-bold tracking-wider ${className ?? ""}`}
-      style={{ background: "var(--card-alt)", border: "1px solid var(--border)" }}
-      role="group"
-      aria-label="Language"
-    >
-      {(["id", "en"] as const).map((option) => (
-        <button
-          key={option}
-          type="button"
-          onClick={() => setLang(option)}
-          className="relative z-10 px-3 py-1 rounded-full transition-colors duration-200 uppercase"
-          style={{ color: lang === option ? "var(--bg)" : "var(--muted-fg)" }}
-        >
-          {lang === option && (
-            <motion.span
-              layoutId="lang-indicator"
-              className="absolute inset-0 rounded-full -z-10"
-              style={{ background: "var(--fg)" }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            />
-          )}
-          {option}
-        </button>
-      ))}
-    </div>
-  );
-}
+
