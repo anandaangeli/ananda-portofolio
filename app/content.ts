@@ -1,8 +1,6 @@
 // ============================================================
 //  ISI DATA DIRI ANDA DI SINI
 //  Cukup ubah teks di bawah — website akan otomatis mengikuti.
-//  Setiap teks punya versi Indonesia (id) dan Inggris (en).
-//  (Data PROYEK diambil dari Sanity Studio di /studio, bukan di sini.)
 // ============================================================
 
 export type Lang = "id" | "en";
@@ -86,11 +84,22 @@ const id = {
       role: "Hospital IT Support Unit Implementer",
       company: "PT.Jejaring Tiga Artha",
       period: "2024",
-      desc: "Bertanggung jawab atas implementasi dan pemeliharaan sistem informasi rumah sakit (SIMRS).",
+      desc: "Implementasi sistem Electronic Medical Record (EMR) di rumah sakit",
       points: [
-        "Memastikan ketersediaan infrastruktur IT dan jaringan untuk mendukung operasional unit medis secara 24/7.",
-        "Melakukan instalasi, konfigurasi, dan pembaruan perangkat keras maupun perangkat lunak rumah sakit.",
-        "Memberikan pelatihan dan dukungan teknis (troubleshooting) kepada staf medis dan administrasi pengguna sistem."
+        "Mendukung proses transisi rumah sakit dari sistem manual ke sistem informasi terintegrasi berbasis web.",
+        "Melakukan input dan pembaruan data kehadiran serta absensi pegawai secara berkala melalui sistem absensi elektronik..",
+        "Membantu proses dokumentasi administratif yang berkaitan dengan data pegawai untuk memastikan kelengkapan dan akurasi data."
+      ]
+    },
+    {
+      role: "Kasir Restoran dan Hostel",
+      company: "Warung Kebun",
+      period: "2022",
+      desc: "Berperan ganda dalam mendukung proses produksi konten dan menangani komunikasi garis depan dengan klien.",
+      points: [
+        "Mengoperasikan sistem Point of Sale (POS) Moka dan mesin EDC untuk memproses transaksi pembayaran tunai maupun non-tunai secara akurat. ",
+        "Melayani pelanggan sebagai waitress, mulai dari rekomendasi menu, pemesanan, hingga penyajian hidangan untuk pelanggan dine-in.",
+        "Merekapitulasi laporan penjualan harian dan melakukan rekonsiliasi kas."
       ]
     },
     {
@@ -102,17 +111,6 @@ const id = {
         "Meningkatkan efisiensi pengelolaan inventaris dengan sistem pencatatan stok yang terstruktur.",
         "Melakukan manajemen data produk (katalog, harga, deskripsi) dan memproses pesanan pelanggan setiap hari.",
         "Menangani keluhan dan pertanyaan pelanggan untuk menjaga reputasi dan rating toko tetap tinggi."
-      ]
-    },
-    {
-      role: "Staff Produksi & Customer Service",
-      company: "Industri Kreatif",
-      period: "2026",
-      desc: "Berperan ganda dalam mendukung proses produksi konten dan menangani komunikasi garis depan dengan klien.",
-      points: [
-        "Menangani kebutuhan pelanggan dengan komunikasi yang efektif dan penyelesaian masalah yang cepat.",
-        "Berkolaborasi dengan tim produksi untuk memastikan hasil akhir sesuai dengan spesifikasi klien.",
-        "Menjaga standar kualitas layanan sebelum produk akhir diserahkan kepada konsumen."
       ]
     },
   ],
