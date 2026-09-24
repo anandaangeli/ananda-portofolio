@@ -8,9 +8,9 @@ export const content = {
   // Nama yang tampil besar di bagian atas
   name: "Ananda Gracia Angeli",
 
-  heroSubtitle: "Informatics Engineering Student & Developer",
+  heroSubtitle: "Fresh Graduate",
   heroDescription:
-    "Mahasiswa Teknik Informatika yang antusias dalam pengembangan aplikasi web/mobile dan implementasi teknologi seperti Natural Language Processing (NLP).",
+    "Seorang lulusan IT yang memiliki antusiasme tinggi terhadap pengembangan inovasi di bidang Web dan Software Development. Saya berdedikasi untuk selalu menciptakan solusi digital yang fungsional dan berpusat pada pengguna. Sebagai individu yang adaptif dan komunikatif, saya selalu antusias menyambut teknologi baru dan tantangan kolaboratif. Saya berkomitmen untuk terus belajar, bertumbuh, dan menjadi bagian dari tim yang menciptakan perubahan positif.",
   heroPhoto: "/foto-ananda.jpeg",
 
   aboutIntro:
@@ -19,7 +19,7 @@ export const content = {
   education: {
     institution: "Universitas Saintek Muhammadiyah",
     degree: "S1 Teknik Informatika",
-    note: "Penelitian Skripsi: Sistem Tutor Adaptif berbasis NLP",
+    note: "Penelitian Skripsi: Aplikasi Pembelajaran Bahasa Inggris berbasis NLP",
   },
 
   skillGroups: [
