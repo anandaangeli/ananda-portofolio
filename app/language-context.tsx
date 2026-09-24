@@ -1,11 +1,11 @@
 "use client";
 
 import { createContext, useContext, useMemo } from "react";
-import { content, type Lang } from "./content";
+import { content } from "./content";
 
 type LanguageContextValue = {
-  lang: Lang;
-  setLang: (lang: Lang) => void;
+  lang: "id";
+  setLang: (lang: "id") => void;
   t: (typeof content)["id"];
 };
 
