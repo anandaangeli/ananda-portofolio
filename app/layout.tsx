@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { LanguageProvider } from "./language-context";
+
+import { ThemeProvider } from "./theme-provider";
 
 export const metadata: Metadata = {
   title: "Ananda Gracia Angeli — Portofolio",
@@ -12,8 +15,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider>
+          <LanguageProvider>{children}</LanguageProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
