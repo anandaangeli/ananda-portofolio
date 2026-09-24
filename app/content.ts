@@ -11,8 +11,7 @@ export const content = {
   heroSubtitle: "Informatics Engineering Student & Developer",
   heroDescription:
     "Mahasiswa Teknik Informatika yang antusias dalam pengembangan aplikasi web/mobile dan implementasi teknologi seperti Natural Language Processing (NLP).",
-  heroPhoto:
-    "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=640&h=640&fit=crop&auto=format",
+  heroPhoto: "/foto-ananda.jpeg",
 
   aboutIntro:
     "Saya adalah mahasiswa Teknik Informatika yang bersemangat dalam membangun solusi digital bermakna. Minat saya mencakup pengembangan aplikasi full-stack, mobile development, dan riset di bidang kecerdasan buatan — khususnya Natural Language Processing.",
