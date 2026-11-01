@@ -130,7 +130,7 @@ export default function Skills() {
           <div className="w-full lg:w-2/3">
              <div className="relative min-h-[320px] w-full bg-[var(--card)] border border-[var(--border)] rounded-[2rem] p-6 sm:p-10 overflow-hidden shadow-xl">
                 {/* Subtle Grid Background */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#818cf80a_1px,transparent_1px),linear-gradient(to_bottom,#818cf80a_1px,transparent_1px)] bg-[size:24px_24px]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#38bdf80a_1px,transparent_1px),linear-gradient(to_bottom,#38bdf80a_1px,transparent_1px)] bg-[size:24px_24px]" />
                 
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -142,7 +142,7 @@ export default function Skills() {
                     className="relative z-10 flex flex-col h-full"
                   >
                      <div className="flex items-center gap-5 mb-8 pb-6 border-b border-[var(--border)]">
-                        <div className="text-[var(--primary)] bg-[var(--primary)]/10 p-3 rounded-xl border border-[var(--primary)]/20 shadow-[0_0_15px_rgba(167,139,250,0.1)]">
+                        <div className="text-[var(--primary)] bg-[var(--primary)]/10 p-3 rounded-xl border border-[var(--primary)]/20 shadow-[0_0_15px_rgba(14,165,233,0.1)]">
                            <div className="w-7 h-7 sm:w-8 sm:h-8 [&>svg]:w-full [&>svg]:h-full">
                               {ActiveIcon}
                            </div>

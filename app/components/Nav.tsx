@@ -5,8 +5,8 @@ import { useLanguage } from "../language-context";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
 
-const SECTION_KEYS = ["about", "skills", "experience", "projects", "organization", "certificates"] as const;
-const SECTION_IDS = ["home", ...SECTION_KEYS];
+const SECTION_KEYS = ["home", "about", "pendidikan", "experience", "sertifikat", "projects", "contact"] as const;
+const SECTION_IDS: string[] = [...SECTION_KEYS];
 
 export default function Nav() {
   const { lang, setLang, t } = useLanguage();
@@ -19,11 +19,6 @@ export default function Nav() {
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  const initials = t.name
-    .split(" ")
-    .map((word) => word[0])
-    .join("");
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40);
@@ -48,52 +43,35 @@ export default function Nav() {
     return () => observer.disconnect();
   }, []);
 
-  const navLinks = SECTION_KEYS.map((key) => ({ href: `#${key}`, label: t.nav[key] }));
+  const navLinks = SECTION_KEYS.map((key) => ({ href: `#${key}`, label: key === "contact" ? t.nav.contactLink : t.nav[key as keyof typeof t.nav] }));
 
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-6xl transition-all duration-300">
-      <nav
-        className={`flex items-center justify-between px-4 sm:px-6 h-14 sm:h-16 rounded-full transition-all duration-300 border ${
-          scrolled || menuOpen
-            ? "border-[var(--border)] shadow-lg backdrop-blur-xl"
-            : "border-transparent bg-transparent"
-        }`}
-        style={{
-          background: (scrolled || menuOpen) ? (mounted && theme === "light" ? "rgba(255, 255, 255, 0.85)" : "rgba(21, 18, 30, 0.85)") : "transparent",
-        }}
-      >
-        {/* Brand / Logo */}
-        <a href="#home" className="flex items-center gap-3 group shrink-0">
-          <div className="relative flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden group-hover:scale-105 transition-transform duration-300">
-            <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] opacity-80 group-hover:opacity-100 transition-opacity" />
-            <span className="relative z-10 font-display text-sm font-bold text-white tracking-wider">
-              {initials}
-            </span>
-          </div>
-          <span className="hidden sm:block text-sm font-semibold text-[var(--fg)] tracking-tight group-hover:text-[var(--primary)] transition-colors">
-            {t.name.split(" ")[0]} {t.name.split(" ")[1]}
-          </span>
+    <header
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+        scrolled || menuOpen ? "bg-[var(--card)]/85 backdrop-blur-xl border-b border-[var(--border)] shadow-sm" : "bg-transparent"
+      }`}
+    >
+      <nav className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16">
+        {/* Brand / Logo: dua blok seperti referensi */}
+        <a href="#home" className="flex items-center text-[13px] font-bold tracking-wider shrink-0">
+          <span className="bg-[var(--primary)] text-white px-2 py-1">{t.name.split(" ")[0].toUpperCase()}</span>
+          <span className="bg-[var(--primary)]/15 text-[var(--primary)] px-2 py-1">{t.name.split(" ")[2]?.toUpperCase()}</span>
         </a>
 
         {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center gap-1 bg-[var(--card-alt)]/50 border border-[var(--border)] p-1 rounded-full backdrop-blur-md">
+        <div className="hidden lg:flex items-center gap-9">
           {navLinks.map((link) => {
             const isActive = active === link.href.slice(1);
             return (
               <a
                 key={link.href}
                 href={link.href}
-                className="relative px-4 py-1.5 text-xs font-medium transition-colors duration-200 rounded-full"
-                style={{ color: isActive ? "var(--bg)" : "var(--muted-fg)" }}
+                className={`relative py-1 text-sm transition-colors duration-200 ${isActive ? "text-[var(--primary)] font-medium" : "text-[var(--fg)] hover:text-[var(--primary)]"}`}
               >
-                {isActive && (
-                  <motion.div
-                    layoutId="nav-indicator"
-                    className="absolute inset-0 bg-[var(--fg)] rounded-full -z-10"
-                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                  />
-                )}
                 {link.label}
+                {isActive && (
+                  <motion.span layoutId="nav-underline" className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-6 bg-[var(--primary)] rounded-full" />
+                )}
               </a>
             );
           })}
@@ -118,7 +96,7 @@ export default function Nav() {
 
           <a
             href="#contact"
-            className="hidden sm:inline-flex px-4 py-2 text-xs font-bold bg-[var(--primary)] text-[var(--card)] rounded-full hover:bg-[var(--accent)] transition-all duration-300 hover:shadow-[0_0_15px_rgba(167,139,250,0.4)] hover:scale-105"
+            className="hidden sm:inline-flex px-4 py-2 text-xs font-bold bg-[var(--primary)] text-[var(--card)] rounded-full hover:bg-[var(--accent)] transition-all duration-300 hover:shadow-[0_0_15px_rgba(14,165,233,0.4)] hover:scale-105"
           >
             {t.nav.contact}
           </a>
@@ -157,7 +135,7 @@ export default function Nav() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden absolute top-full left-0 right-0 mt-3 p-4 rounded-3xl bg-[var(--bg)]/90 backdrop-blur-xl border border-[var(--border)] shadow-2xl flex flex-col gap-2 origin-top"
+            className="lg:hidden absolute top-full left-0 right-0 mt-2 mx-4 p-4 rounded-3xl bg-[var(--bg)]/90 backdrop-blur-xl border border-[var(--border)] shadow-2xl flex flex-col gap-2 origin-top"
           >
             {navLinks.map((link) => {
               const isActive = active === link.href.slice(1);

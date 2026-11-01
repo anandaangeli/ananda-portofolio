@@ -3,190 +3,111 @@
 import { useLanguage } from "../language-context";
 import { motion } from "framer-motion";
 
+const fade = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, delay, ease: "easeOut" as const },
+});
+
+// Bubble teknologi pudar. Posisi (x%, y%) diukur dari desain referensi, titik tengah bubble.
+const bubbles = [
+  { label: "C++", x: 61, y: 23 },
+  { label: "Js", x: 92, y: 24 },
+  { label: "</>", x: 27, y: 52 },
+  { label: "PHP", x: 10, y: 70 },
+  { label: "HTML", x: 31, y: 82 },
+  { label: "CSS", x: 74, y: 74 },
+];
+
+const iconProps = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" } as const;
+const MonitorIcon = () => (
+  <svg {...iconProps}><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></svg>
+);
+const PhoneIcon = () => (
+  <svg {...iconProps}><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M11 18h2" /></svg>
+);
+
 export default function Hero() {
   const { t } = useLanguage();
-  const nameWords = t.name.split(" "); // Ananda Gracia Angeli
-
-  // Animations configuration
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1, 
-      transition: { staggerChildren: 0.15, delayChildren: 0.1 } 
-    }
-  };
-
-  const leftVariants = {
-    hidden: { opacity: 0, x: -30 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } }
-  } as const;
-
-  const rightVariants = {
-    hidden: { opacity: 0, x: 30 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } }
-  } as const;
-
-  const photoVariants = {
-    hidden: { opacity: 0, scale: 0.8, y: 30 },
-    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-  } as const;
-
-  // A new animation: floating pulse
-  const floatingAnimation = {
-    y: ["-8px", "8px", "-8px"],
-    transition: { duration: 3.5, repeat: Infinity, ease: "easeInOut" as const }
-  };
+  const h = t.hero;
+  const count = (re: RegExp) => t.projectItems.filter((p) => re.test(p.tech ?? "")).length;
+  const mobile = count(/android|react native|expo|kotlin|flutter/i);
+  const stats = [
+    { label: h.statWeb, value: count(/website|next\.?js|laravel|php/i), icon: <MonitorIcon /> },
+    { label: h.statAndroid, value: mobile, icon: <PhoneIcon /> },
+  ];
 
   return (
-    <section className="relative min-h-[100svh] flex flex-col justify-center pt-24 pb-16 px-6 overflow-hidden" id="home">
-      {/* Background Grid */}
-      <div className="absolute inset-0 z-0 opacity-30">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f20_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f20_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_70%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+    <section
+      id="home"
+      className="relative z-10 bg-[var(--card-alt)] px-6 pt-28 pb-12 flex flex-col items-center text-center lg:h-[calc(100svh-3.5rem)] lg:min-h-[620px] lg:p-0 lg:block"
+    >
+      {/* Dekorasi (dipotong di tepi layar) */}
+      <div className="hidden lg:block absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Foto pendukung kiri atas */}
+        <motion.div {...fade(0.2)} className="absolute top-0 left-0 w-[17%] aspect-[3/4]">
+          <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-br-[6rem] rounded-tr-[2rem] rounded-bl-[4rem] border-2 border-[var(--primary)]/25" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={h.photoBlob} alt="" className="relative w-full h-full object-cover rounded-br-[6rem] rounded-tr-[2rem] rounded-bl-[4rem]" />
+        </motion.div>
+
+        {/* Foto pendukung kanan, terpotong tepi layar */}
+        <motion.div {...fade(0.3)} className="absolute left-[92%] top-[75%] w-[19%] aspect-square -translate-x-1/2 -translate-y-1/2">
+          <div className="absolute -inset-4 rounded-full border-2 border-[var(--primary)]/25" />
+          <div className="absolute -inset-1.5 rounded-full border border-[var(--primary)]/15" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={h.photoCircle} alt="" className="relative w-full h-full object-cover rounded-full" />
+        </motion.div>
+
+        {bubbles.map((b) => (
+          <span
+            key={b.label}
+            style={{ left: `${b.x}%`, top: `${b.y}%` }}
+            className="absolute -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full flex items-center justify-center bg-white/60 text-xs font-medium text-[var(--muted-fg)]/50 shadow-[0_4px_20px_rgba(11,143,208,0.07)] dark:bg-white/5"
+          >
+            {b.label}
+          </span>
+        ))}
       </div>
 
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] rounded-full -z-10 pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, #a78bfa15 0%, transparent 60%)",
-          filter: "blur(60px)",
-        }}
-      />
+      {/* Teks tengah */}
+      <div className="relative w-full max-w-3xl lg:absolute lg:top-[33%] lg:left-1/2 lg:-translate-x-1/2">
+        <h1 className="font-body text-[var(--fg)] tracking-tight leading-[1.2] text-[clamp(2rem,3.4vw,3.25rem)]">
+          <motion.span {...fade(0.1)} className="block font-normal">{h.headline[0]}</motion.span>
+          <motion.span {...fade(0.2)} className="block font-semibold text-[var(--primary)]">{h.headline[1]}</motion.span>
+        </h1>
 
-      <div className="max-w-7xl mx-auto w-full z-10 relative mt-4">
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-4"
-        >
-          {/* LEFT COLUMN - Title & Identity */}
-          <motion.div 
-            variants={leftVariants}
-            className="flex-1 flex flex-col items-center text-center lg:items-end lg:text-right w-full lg:pr-8 order-2 lg:order-1"
-          >
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[var(--primary)]/30 bg-[var(--primary)]/10 backdrop-blur-sm mb-6 hover:bg-[var(--primary)]/20 transition-colors">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--primary)] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--primary)]"></span>
-              </span>
-              <span className="text-[var(--primary)] text-xs font-semibold tracking-wide uppercase">
-                {t.hero.badge}
-              </span>
-            </div>
+        <motion.p {...fade(0.35)} className="mt-5 mx-auto max-w-xl text-sm sm:text-base text-[var(--muted-fg)] leading-relaxed">
+          {h.description}
+        </motion.p>
 
-            <span className="block text-xl md:text-2xl font-medium text-[var(--muted-fg)] mb-2 font-sans">{t.hero.greeting}</span>
-            <h1 className="font-display text-4xl sm:text-5xl xl:text-[3.5rem] font-bold leading-[1.1] text-[var(--fg)] tracking-tight">
-              {nameWords[0]} <br className="hidden lg:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-br from-[var(--primary)] to-[var(--accent)]">
-                {nameWords.slice(1).join(" ")}
-              </span>
-            </h1>
-            <h2 className="text-lg md:text-xl font-light text-[var(--fg)] mt-5 max-w-sm">
-              {t.hero.subtitle}
-            </h2>
-          </motion.div>
-
-          {/* CENTER COLUMN - Photo */}
-          <motion.div 
-            variants={photoVariants}
-            className="flex-shrink-0 relative order-1 lg:order-2 w-56 h-56 md:w-64 md:h-64 lg:w-[280px] lg:h-[280px] mb-8 lg:mb-0"
-          >
-            {/* Spinning ring around the photo */}
-            <motion.div 
-              animate={{ rotate: 360 }}
-              transition={{ duration: 25, repeat: Infinity, ease: "linear" } as const}
-              className="absolute -inset-6 md:-inset-8 rounded-full border border-dashed border-[var(--primary)]/30 z-0"
-            />
-            <motion.div 
-              animate={{ rotate: -360 }}
-              transition={{ duration: 35, repeat: Infinity, ease: "linear" } as const}
-              className="absolute -inset-10 md:-inset-12 rounded-full border border-[var(--accent)]/10 z-0 hidden lg:block"
-            />
-
-            <div className="relative w-full h-full rounded-full overflow-hidden border-[6px] border-[var(--card)] shadow-[0_0_40px_rgba(167,139,250,0.15)] z-10 bg-[var(--card-alt)]">
-              {/* Image with original colors */}
-              <img
-                src={t.hero.photo}
-                alt={t.name}
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-              />
-            </div>
-
-            {/* Small Floating Orbs/Icons around the center */}
-            <motion.div 
-              animate={floatingAnimation}
-              className="absolute -top-2 -right-2 lg:-right-6 bg-[var(--card-alt)]/80 backdrop-blur-md border border-[var(--primary)]/30 w-12 h-12 flex items-center justify-center rounded-full shadow-xl z-30"
-            >
-              <div className="text-xl">🚀</div>
-            </motion.div>
-            <motion.div 
-              animate={{...floatingAnimation, transition: { ...floatingAnimation.transition, delay: 1.5 }}}
-              className="absolute bottom-2 -left-2 lg:-left-6 bg-[var(--card-alt)]/80 backdrop-blur-md border border-[#f472b6]/30 w-12 h-12 flex items-center justify-center rounded-full shadow-xl z-30"
-            >
-              <div className="text-xl text-[#f472b6]">🤖</div>
-            </motion.div>
-          </motion.div>
-
-          {/* RIGHT COLUMN - Desc & Action */}
-          <motion.div 
-            variants={rightVariants}
-            className="flex-1 flex flex-col items-center text-center lg:items-start lg:text-left w-full lg:pl-8 order-3 lg:order-3"
-          >
-            <p className="text-[var(--muted-fg)] leading-relaxed max-w-sm mb-8 text-base">
-              {t.hero.description}
-            </p>
-            
-            <div className="flex flex-col gap-4 w-full sm:w-auto">
-              <a
-                href="#projects"
-                className="group relative px-8 py-3.5 bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] text-[var(--card)] font-bold rounded-full transition-all duration-300 text-sm overflow-hidden text-center hover:scale-105 shadow-[0_0_20px_rgba(167,139,250,0.3)]"
-              >
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  {t.hero.ctaProjects}
-                  <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </span>
-              </a>
-              <a
-                href="/cv.pdf"
-                download
-                className="group px-8 py-3.5 border border-[var(--border)] bg-transparent text-[var(--fg)] font-semibold rounded-full hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all duration-300 text-sm text-center inline-flex items-center justify-center gap-2"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                {t.hero.ctaCv}
-              </a>
-            </div>
-            
-            {/* Status / Highlight Display */}
-            <div className="mt-10 p-4 rounded-2xl bg-[var(--card)] border border-[var(--border)] flex items-center gap-4 w-full max-w-sm shadow-sm hover:border-[var(--primary)]/50 transition-colors duration-300">
-              <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0">
-                <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-                </span>
-              </div>
-              <div className="text-left">
-                <p className="text-sm font-semibold text-[var(--fg)]">{t.hero.status}</p>
-                <p className="text-xs text-[var(--muted-fg)] font-medium">{t.hero.statusNote}</p>
-              </div>
-            </div>
-          </motion.div>
+        <motion.div {...fade(0.5)} className="mt-7 flex flex-wrap justify-center gap-3">
+          <a href="#projects" className="px-8 py-3 rounded-full bg-[var(--primary)] text-white text-sm font-semibold shadow-md shadow-[var(--primary)]/30 hover:brightness-110 hover:-translate-y-0.5 transition-all">
+            {h.ctaProjects}
+          </a>
+          <a href="/cv.pdf" download className="px-8 py-3 rounded-full bg-[var(--primary)]/15 text-[var(--primary)] text-sm font-semibold shadow-md shadow-[var(--primary)]/10 hover:-translate-y-0.5 transition-all">
+            {h.ctaCv}
+          </a>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 hidden lg:flex"
-      >
-        <span className="text-[var(--muted-fg-dark)] text-[10px] uppercase tracking-[0.2em] font-medium">{t.hero.scrollDown}</span>
-        <motion.div 
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-[1px] h-8 bg-gradient-to-b from-[var(--primary)] to-transparent"
-        />
-      </motion.div>
+      {/* Kartu statistik: menyeberangi batas bawah hero seperti di desain */}
+      <div className="relative mt-10 lg:mt-0 lg:absolute lg:left-1/2 lg:bottom-0 lg:-translate-x-1/2 lg:translate-y-1/2 z-20">
+        <motion.div
+          {...fade(0.65)}
+          className="inline-grid grid-cols-2 gap-4 sm:gap-10 rounded-xl bg-[var(--card)] px-5 sm:px-8 py-4 shadow-[0_10px_40px_rgba(11,143,208,0.15)]"
+        >
+          {stats.map((s) => (
+            <div key={s.label} className="flex items-center gap-3 text-left">
+              <span className="hidden sm:flex w-11 h-11 rounded-lg bg-[var(--primary)]/15 text-[var(--primary)] items-center justify-center">{s.icon}</span>
+              <div>
+                <p className="text-[11px] sm:text-xs text-[var(--fg)] leading-tight">{s.label}</p>
+                <p className="text-lg font-bold text-[var(--fg)] leading-tight mt-0.5">{s.value}</p>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 }

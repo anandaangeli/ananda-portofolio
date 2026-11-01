@@ -1,10 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLanguage } from "../language-context";
-import { motion } from "framer-motion";
 
 export type ProjectCard = {
   _id: string;
@@ -15,180 +13,248 @@ export type ProjectCard = {
   imageUrl?: string;
 };
 
+const Arrow = ({ dir }: { dir: "left" | "right" }) => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d={dir === "left" ? "M15 18l-6-6 6-6" : "M9 18l6-6-6-6"} />
+  </svg>
+);
+
 export default function Projects() {
   const { t } = useLanguage();
   const projects = t.projectItems;
-  const [active, setActive] = useState(t.projects.filterAll);
+  const [openId, setOpenId] = useState<string | null>(null);
+  const [index, setIndex] = useState(0);
+  const scroller = useRef<HTMLDivElement>(null);
+  const opened = projects.find((p) => p._id === openId);
 
-  // Kumpulkan tag teknologi unik dari semua proyek (dipisah koma)
-  const tags = useMemo(() => {
-    const set = new Set<string>();
-    projects.forEach((p) =>
-      p.tech
-        ?.split(",")
-        .map((tech) => tech.trim())
-        .filter(Boolean)
-        .forEach((tech) => set.add(tech))
-    );
-    return [t.projects.filterAll, ...Array.from(set)];
-  }, [projects, t.projects.filterAll]);
+  const go = useCallback(
+    (i: number) => {
+      const el = scroller.current;
+      if (!el) return;
+      const target = (i + projects.length) % projects.length;
+      el.scrollTo({ left: target * el.clientWidth, behavior: "smooth" });
+    },
+    [projects.length]
+  );
 
-  const filtered =
-    active === t.projects.filterAll
-      ? projects
-      : projects.filter((p) => p.tech?.toLowerCase().includes(active.toLowerCase()));
+  const onScroll = () => {
+    const el = scroller.current;
+    if (el) setIndex(Math.round(el.scrollLeft / el.clientWidth));
+  };
+
+  // Tutup modal dengan Esc
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpenId(null);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   return (
-    <section id="projects" className="py-24 sm:py-32 px-6 border-t border-[var(--border)] relative overflow-hidden">
-      {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[40rem] h-[40rem] rounded-full bg-[radial-gradient(circle,var(--primary)_0%,transparent_50%)] opacity-[0.03] blur-[100px] -z-10 pointer-events-none" />
-
-      <div className="max-w-6xl mx-auto z-10 relative">
-        <div className="mb-12 flex flex-col items-center text-center">
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[var(--primary)]/30 bg-[var(--primary)]/10 mb-4"
-          >
-            <span className="w-2 h-2 rounded-full bg-[var(--primary)] animate-pulse" />
-            <span className="text-[var(--primary)] text-xs font-semibold tracking-widest uppercase">
-              {t.projects.eyebrow}
-            </span>
-          </motion.div>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ delay: 0.1 }}
-            className="font-display text-4xl sm:text-5xl font-bold text-[var(--fg)] tracking-tight"
-          >
-            {t.projects.heading1} <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] italic">{t.projects.headingAccent}</span>
-          </motion.h2>
+    <section id="projects" className="py-20 sm:py-24 px-6 bg-[var(--card)]">
+      <div className="max-w-6xl mx-auto">
+        <div className="mb-8 flex items-end justify-between gap-4">
+          <h2 className="text-3xl font-bold text-[var(--fg)]">{t.projects.heading}</h2>
+          <p className="text-sm text-[var(--muted-fg)] tabular-nums">
+            {String(index + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+          </p>
         </div>
 
-        {projects.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="rounded-3xl p-12 text-center text-[var(--muted-fg)] bg-[var(--card)] border border-dashed border-[var(--primary)]/30 shadow-sm"
-          >
-            <p className="text-lg mb-4">{t.projects.empty}</p>
-            <Link href="/studio" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--primary)] text-[var(--bg)] font-semibold hover:opacity-90 transition-opacity">
-              Buka Sanity Studio →
-            </Link>
-          </motion.div>
-        ) : (
-          <>
-            {tags.length > 1 && (
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-10 flex flex-wrap justify-center gap-2 sm:gap-3"
-              >
-                {tags.map((tag) => (
-                  <button
-                    key={tag}
-                    type="button"
-                    onClick={() => setActive(tag)}
-                    className={`relative px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
-                      active === tag 
-                        ? "text-[var(--bg)] shadow-md" 
-                        : "text-[var(--muted-fg)] bg-[var(--card)] border border-[var(--border)] hover:bg-[var(--card-alt)] hover:text-[var(--fg)]"
-                    }`}
-                  >
-                    {active === tag && (
-                      <motion.div 
-                        layoutId="activeFilterBg"
-                        className="absolute inset-0 bg-[var(--primary)] rounded-xl"
-                        initial={false}
-                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                      />
-                    )}
-                    <span className="relative z-10">{tag}</span>
-                  </button>
-                ))}
-              </motion.div>
-            )}
+        {/* Tab nama proyek */}
+        <div className="mb-6 flex flex-wrap gap-2" role="tablist" aria-label={t.projects.heading}>
+          {projects.map((project, i) => (
+            <button
+              key={project._id}
+              type="button"
+              role="tab"
+              aria-selected={i === index}
+              onClick={() => go(i)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                i === index
+                  ? "bg-[var(--primary)] text-white shadow-md shadow-[var(--primary)]/30"
+                  : "bg-[var(--card-alt)] text-[var(--muted-fg)] hover:text-[var(--primary)]"
+              }`}
+            >
+              {project.short}
+            </button>
+          ))}
+        </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* <AnimatePresence> doesn't work perfectly with simple map unless configured with keys, we'll just use normal map but with motion items */}
-              {filtered.map((project, i) => (
-                <motion.div
-                  key={project._id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4, delay: i * 0.1 }}
-                  className="rounded-[2rem] overflow-hidden flex flex-col bg-[var(--card)] border border-[var(--border)] hover:border-[var(--primary)]/50 shadow-sm hover:shadow-2xl hover:shadow-[var(--primary)]/10 transition-all duration-500 group"
-                >
-                  {/* Project Image */}
-                  <div className="relative h-56 overflow-hidden bg-black/5">
-                    {project.imageUrl ? (
+        {/* Carousel */}
+        <div className="relative" aria-roledescription="carousel">
+          <div
+            ref={scroller}
+            onScroll={onScroll}
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "ArrowRight") go(index + 1);
+              if (e.key === "ArrowLeft") go(index - 1);
+            }}
+            className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden rounded-3xl focus:outline-none"
+          >
+            {projects.map((project, i) => (
+              <article
+                key={project._id}
+                aria-roledescription="slide"
+                aria-label={`${i + 1} / ${projects.length}`}
+                className="w-full shrink-0 snap-center"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-6 md:gap-10 items-center rounded-3xl bg-[var(--card-alt)] p-4 sm:p-6 md:p-8">
+                  {/* Cover */}
+                  <div className="relative rounded-2xl overflow-hidden bg-[var(--card)] border border-[var(--border)] shadow-[0_14px_44px_rgba(11,143,208,0.18)]">
+                    <div className="absolute top-3 left-3 z-10 flex flex-wrap gap-2">
+                      <span className="rounded-full bg-[var(--card)]/90 backdrop-blur px-3 py-1 text-[11px] font-semibold text-[var(--primary)] shadow">{project.category}</span>
+                      {project.status && (
+                        <span className="rounded-full bg-[var(--primary)] px-3 py-1 text-[11px] font-semibold text-white shadow">{project.status}</span>
+                      )}
+                    </div>
+                    {project.imageUrl && (
                       <Image
                         src={project.imageUrl}
                         alt={project.title ?? t.projects.imageAlt}
-                        width={800}
-                        height={500}
-                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                        width={1200}
+                        height={750}
+                        priority={i === 0}
+                        className="w-full h-auto aspect-[16/10] object-cover object-top"
                       />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-5xl bg-[var(--card-alt)]">
-                        🚀
-                      </div>
                     )}
-                    {/* Overlay gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--card)] via-transparent to-transparent opacity-80" />
                   </div>
 
-                  {/* Project Info */}
-                  <div className="p-6 sm:p-8 flex-1 flex flex-col relative">
-                    <div className="flex flex-wrap gap-2 mb-4 relative z-10 -mt-10">
-                      {project.tech
-                        ?.split(",")
-                        .map((tech) => tech.trim())
-                        .filter(Boolean)
-                        .map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-3 py-1 rounded-full font-mono text-[10px] font-bold text-[var(--bg)] bg-[var(--fg)] shadow-sm"
-                          >
-                            {tech}
-                          </span>
-                        ))}
+                  {/* Isi */}
+                  <div>
+                    <h3 className="text-2xl sm:text-3xl font-bold text-[var(--fg)] leading-tight">{project.title}</h3>
+                    <p className="mt-3 text-sm sm:text-base text-[var(--muted-fg)] leading-relaxed">{project.description}</p>
+
+                    <ul className="mt-5 space-y-2.5">
+                      {project.highlights.map((h) => (
+                        <li key={h} className="flex items-start gap-3 text-sm sm:text-[15px] text-[var(--fg)]">
+                          <span className="mt-0.5 w-5 h-5 shrink-0 rounded-full bg-[var(--primary)]/15 text-[var(--primary)] flex items-center justify-center text-[11px] font-bold">✓</span>
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="mt-5 flex flex-wrap gap-1.5">
+                      {project.tech?.split(",").map((x) => x.trim()).filter(Boolean).map((tech) => (
+                        <span key={tech} className="px-2.5 py-1 rounded-full bg-[var(--card)] border border-[var(--border)] text-[11px] text-[var(--muted-fg)]">{tech}</span>
+                      ))}
                     </div>
 
-                    <h3 className="font-display font-bold text-2xl text-[var(--fg)] mb-3 group-hover:text-[var(--primary)] transition-colors">
-                      {project.title}
-                    </h3>
-                    
-                    <p className="text-sm text-[var(--muted-fg)] leading-relaxed mb-6 line-clamp-3">
-                      {project.description}
-                    </p>
-                    
-                    {project.link && (
-                      <div className="mt-auto pt-4 border-t border-[var(--border)]">
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      {(project.gallery || project.video) && (
+                        <button
+                          type="button"
+                          onClick={() => setOpenId(project._id)}
+                          className="px-6 py-3 rounded-full bg-[var(--primary)] text-white text-sm font-semibold shadow-md shadow-[var(--primary)]/30 hover:brightness-110 hover:-translate-y-0.5 transition-all"
+                        >
+                          ▶ {t.projects.viewDetail}
+                        </button>
+                      )}
+                      {project.link && (
                         <a
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--primary)] hover:opacity-80 transition-opacity"
+                          className="px-6 py-3 rounded-full border border-[var(--primary)]/40 bg-[var(--card)] text-[var(--primary)] text-sm font-semibold hover:bg-[var(--primary)]/10 transition-colors"
                         >
-                          {t.projects.viewProject}
-                          <span className="transition-transform duration-300 group-hover:translate-x-1.5">→</span>
+                          {t.projects.viewProject} ↗
                         </a>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </>
-        )}
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Panah */}
+          <button
+            type="button"
+            aria-label="Sebelumnya"
+            onClick={() => go(index - 1)}
+            className="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[var(--card)] border border-[var(--border)] text-[var(--primary)] items-center justify-center shadow-lg hover:bg-[var(--primary)] hover:text-white transition-colors"
+          >
+            <Arrow dir="left" />
+          </button>
+          <button
+            type="button"
+            aria-label="Berikutnya"
+            onClick={() => go(index + 1)}
+            className="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[var(--card)] border border-[var(--border)] text-[var(--primary)] items-center justify-center shadow-lg hover:bg-[var(--primary)] hover:text-white transition-colors"
+          >
+            <Arrow dir="right" />
+          </button>
+        </div>
+
+        {/* Titik penunjuk (mobile) */}
+        <div className="mt-5 flex justify-center gap-2 md:hidden">
+          {projects.map((project, i) => (
+            <button
+              key={project._id}
+              type="button"
+              aria-label={project.short}
+              onClick={() => go(i)}
+              className={`h-2 rounded-full transition-all ${i === index ? "w-6 bg-[var(--primary)]" : "w-2 bg-[var(--primary)]/30"}`}
+            />
+          ))}
+        </div>
       </div>
+
+      {opened && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm overflow-y-auto p-4 sm:p-8"
+          onClick={() => setOpenId(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={opened.title}
+        >
+          <div
+            className="relative max-w-4xl mx-auto rounded-3xl bg-[var(--bg)] border border-[var(--border)] p-6 sm:p-10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setOpenId(null)}
+              className="absolute top-4 right-4 px-3 py-1.5 rounded-lg text-sm font-semibold bg-[var(--card)] border border-[var(--border)] text-[var(--fg)] hover:bg-[var(--card-alt)]"
+            >
+              ✕ {t.projects.close}
+            </button>
+            <h3 className="font-display font-bold text-2xl sm:text-3xl text-[var(--fg)] pr-24 mb-2">{opened.title}</h3>
+            <p className="text-xs font-mono text-[var(--muted-fg)] mb-6">{opened.tech}</p>
+
+            {opened.video && (
+              <>
+                <h4 className="font-semibold text-[var(--fg)] mb-2">{t.projects.demoVideo}</h4>
+                <video
+                  src={opened.video}
+                  controls
+                  preload="metadata"
+                  poster={opened.imageUrl}
+                  className={`rounded-2xl border border-[var(--border)] mb-1 bg-black ${opened.portrait ? "mx-auto block max-w-[260px]" : "w-full"}`}
+                />
+                <p className="text-xs text-[var(--muted-fg)] mb-6">{opened.note ?? t.projects.note}</p>
+              </>
+            )}
+
+            <ul className="space-y-3 mb-8 text-sm text-[var(--muted-fg)] leading-relaxed list-disc pl-5">
+              {opened.details?.map((d) => <li key={d}>{d}</li>)}
+            </ul>
+
+            {opened.gallery && (
+              <>
+                <h4 className="font-semibold text-[var(--fg)] mb-3">{t.projects.gallery}</h4>
+                <div className={opened.portrait ? "grid grid-cols-2 sm:grid-cols-4 gap-3" : "grid sm:grid-cols-2 gap-4"}>
+                  {opened.gallery.map((g) => (
+                    <figure key={g.src} className="rounded-2xl overflow-hidden border border-[var(--border)] bg-[var(--card)]">
+                      <Image src={g.src} alt={g.caption} width={opened.portrait ? 390 : 1440} height={opened.portrait ? 844 : 900} className="w-full h-auto" />
+                      <figcaption className="px-3 py-2 text-xs text-[var(--muted-fg)]">{g.caption}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </section>
   );
 }
