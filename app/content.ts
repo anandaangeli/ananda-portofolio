@@ -81,36 +81,25 @@ const id = {
 
   experiences: [
     {
-      role: "Hospital IT Support Unit Implementer",
-      company: "PT.Jejaring Tiga Artha",
-      period: "2024",
-      desc: "Implementasi sistem Electronic Medical Record (EMR) di rumah sakit",
+      role: "Freelance Web Developer",
+      company: "Freelance",
+      period: "2025 – Sekarang",
+      desc: "Mengembangkan website, landing page, dan sistem informasi sesuai kebutuhan klien.",
       points: [
-        "Mendukung proses transisi rumah sakit dari sistem manual ke sistem informasi terintegrasi berbasis web.",
-        "Melakukan input dan pembaruan data kehadiran serta absensi pegawai secara berkala melalui sistem absensi elektronik..",
-        "Membantu proses dokumentasi administratif yang berkaitan dengan data pegawai untuk memastikan kelengkapan dan akurasi data."
+        "Mengembangkan website, landing page, dan sistem informasi menggunakan HTML, CSS, JavaScript, React, dan Node.js.",
+        "Merancang antarmuka responsif dari desain Figma serta mengelola database MySQL/PostgreSQL.",
+        "Memelihara, mengoptimasi, dan men-deploy website ke Vercel, serta berkomunikasi langsung dengan klien untuk menggali kebutuhan dan merevisi hasil."
       ]
     },
     {
-      role: "Kasir Restoran dan Hostel",
-      company: "Warung Kebun",
-      period: "2022",
-      desc: "Berperan ganda dalam mendukung proses produksi konten dan menangani komunikasi garis depan dengan klien.",
+      role: "Magang Implementer (Unit IT Support)",
+      company: "PT Jejaring Tiga Artha",
+      period: "2023 – 2024",
+      desc: "Implementasi sistem Electronic Medical Record (EMR) di rumah sakit.",
       points: [
-        "Mengoperasikan sistem Point of Sale (POS) Moka dan mesin EDC untuk memproses transaksi pembayaran tunai maupun non-tunai secara akurat. ",
-        "Melayani pelanggan sebagai waitress, mulai dari rekomendasi menu, pemesanan, hingga penyajian hidangan untuk pelanggan dine-in.",
-        "Merekapitulasi laporan penjualan harian dan melakukan rekonsiliasi kas."
-      ]
-    },
-    {
-      role: "Admin Operasional Online Shop",
-      company: "E-Commerce",
-      period: "2021",
-      desc: "Mengelola seluruh aktivitas operasional harian toko digital untuk memastikan kepuasan pelanggan dan akurasi data.",
-      points: [
-        "Meningkatkan efisiensi pengelolaan inventaris dengan sistem pencatatan stok yang terstruktur.",
-        "Melakukan manajemen data produk (katalog, harga, deskripsi) dan memproses pesanan pelanggan setiap hari.",
-        "Menangani keluhan dan pertanyaan pelanggan untuk menjaga reputasi dan rating toko tetap tinggi."
+        "Mendukung implementasi sistem Electronic Medical Record (EMR) di lingkungan rumah sakit.",
+        "Melakukan UAT dan verifikasi kesiapan sistem, first-level troubleshooting, serta eskalasi ke tim teknis.",
+        "Memberikan pelatihan kepada dokter, perawat, dan admin serta menyusun dokumentasi penggunaan sistem."
       ]
     },
   ],
