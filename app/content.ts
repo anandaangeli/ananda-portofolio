@@ -202,7 +202,7 @@ const id = {
     {
       title: "Practical Office Advance",
       issuer: "Badan Nasional Sertifikasi Profesi (BNSP)",
-      year: "2023",
+      year: "2026",
       color: "var(--primary)",
       pdfUrl: "/ANANDA-BNSP.pdf",
       description: "Sertifikasi kompetensi keahlian tingkat lanjut dalam pengoperasian perangkat lunak administrasi dan manajemen data perkantoran secara profesional."
@@ -210,7 +210,7 @@ const id = {
     {
       title: "Global English Proficiency Test (GEEPT)",
       issuer: "GEEPT",
-      year: "2024",
+      year: "2026",
       color: "#6366f1",
       pdfUrl: "/GEEPT_Certificate.pdf",
       description: "Sertifikasi kelancaran berbahasa Inggris tingkat profesional sebagai validasi kemampuan komunikasi lisan dan tulisan di lingkungan global."
