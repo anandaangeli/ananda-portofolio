@@ -138,11 +138,11 @@ const id = {
       logo: "/logos/integrava-digital-horizontal.svg",
       logoAlt: "Logo Integrava Digital",
       period: "2025 – Sekarang",
-      desc: "Merancang dan mengerjakan frontend website Integrava Digital.",
+      desc: "Bekerja di Integrava Digital: membuat website, landing page, dan sistem informasi sesuai permintaan klien.",
       points: [
-        "Merancang website Integrava Digital (brand layanan website, hosting, dan edukasi) dan mengerjakan frontend-nya yang masih berjalan, dengan Next.js, TypeScript, dan Tailwind CSS.",
-        "Membangun website, landing page, dan sistem informasi untuk klien dari desain Figma, dengan database MySQL/PostgreSQL.",
-        "Men-deploy dan memelihara website di Vercel, serta berkomunikasi langsung dengan klien untuk revisi.",
+        "Membuat website, landing page, dan sistem informasi sesuai permintaan klien Integrava Digital (brand layanan website, hosting, dan edukasi), dari desain Figma sampai siap dipakai.",
+        "Mengerjakan frontend, backend, dan database (React, Next.js, TypeScript, Tailwind CSS, MySQL/PostgreSQL), termasuk ikut mengembangkan website Integrava Digital sendiri yang masih berjalan.",
+        "Men-deploy dan menghosting website klien (di shared hosting dan VPS), merawatnya setelah rilis, dan berkomunikasi langsung dengan klien untuk menangani revisi.",
       ],
     },
     {
@@ -223,9 +223,9 @@ const id = {
         "Dua bahasa: Indonesia dan Inggris",
         "Next.js, TypeScript, dan Tailwind CSS",
       ],
-      tech: "Next.js, TypeScript, Tailwind CSS, next-intl",
+      tech: "React, Next.js, TypeScript, Tailwind CSS, next-intl",
       status: "Sedang dikerjakan",
-      description: "Website brand layanan digital Integrava Digital yang berfokus menjual jasa pembuatan website. Saya merancang desainnya dan mengerjakan frontend-nya.",
+      description: "Website brand layanan digital Integrava Digital yang berfokus menjual jasa pembuatan website. Saya ikut merancang dan mengembangkannya bersama tim.",
       link: "",
       imageUrl: "/projects/cover-integrava.jpg",
       video: "/projects/integrava/demo.webm",
@@ -233,7 +233,7 @@ const id = {
       details: [
         "Website brand Integrava Digital dengan fokus layanan IntegraStudio (jasa pembuatan website dan desain).",
         "Halaman: beranda, layanan, harga, portofolio, konsultasi, FAQ, artikel, dan halaman legal. Tersedia dalam bahasa Indonesia dan Inggris.",
-        "Dibangun dengan Next.js (App Router), TypeScript, Tailwind CSS, dan next-intl. Peran saya: merancang desain dan mengerjakan frontend (masih berjalan).",
+        "Dibangun dengan Next.js (App Router), TypeScript, Tailwind CSS, dan next-intl. Peran saya: ikut merancang dan mengembangkannya bersama tim (masih berjalan).",
       ],
       gallery: [
         { src: "/projects/integrava/beranda.jpg", caption: "Beranda" },
